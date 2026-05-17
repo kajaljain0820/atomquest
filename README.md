@@ -103,10 +103,4 @@ GoalForge enforces the following business rules:
 
 ---
 
-## 🚀 Getting Started
 
-### 1️⃣ Clone Repository
-
-```bash
-git clone <your-repository-url>
-cd goalforge
