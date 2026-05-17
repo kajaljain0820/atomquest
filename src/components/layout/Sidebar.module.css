@@ -1,0 +1,108 @@
+.sidebar {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.navItem:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.navItemActive {
+  background: var(--primary-glow);
+  color: var(--primary);
+}
+
+.navItemActive:hover {
+  background: var(--primary-glow);
+  color: var(--primary);
+}
+
+.userProfile {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.userRole {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.logoutBtn {
+  margin-top: auto;
+  color: var(--danger);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+}
+
+.logoutBtn:hover {
+  background: var(--danger-bg);
+}
