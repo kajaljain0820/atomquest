@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GoalForge 🚀
 
-## Getting Started
+### Align Goals. Track Progress. Drive Success.
 
-First, run the development server:
+GoalForge is a modern enterprise goal-setting and performance tracking platform built for the **AtomQuest Hackathon**. The platform enables organizations to streamline employee goal management, manager approvals, quarterly check-ins, and performance reporting through a centralized digital workflow.
+
+---
+
+## ✨ Features
+
+### 👨‍💼 Employee Portal
+- Create and manage performance goals
+- Define targets, weightage, and measurement types
+- Submit goals for manager approval
+- Update quarterly achievements and progress
+- Track goal completion status
+
+### 👨‍💻 Manager Dashboard
+- Review and approve employee goals
+- Edit targets and weightages inline
+- Conduct quarterly check-ins
+- Add structured feedback/comments
+- Monitor team progress in real time
+
+### 🛡️ Admin / HR Panel
+- Manage users and organizational hierarchy
+- Unlock/edit locked goals
+- Track completion rates
+- View audit logs and system activity
+- Generate downloadable reports
+
+---
+
+## 📊 Core Functionalities
+
+- Goal Creation & Approval Workflow
+- Role-Based Access Control (RBAC)
+- Quarterly Achievement Tracking
+- Real-Time Progress Monitoring
+- System-Enforced Validation Rules
+- Audit Trail Logging
+- Professional PDF & Excel Reporting
+- Responsive Enterprise UI
+
+---
+
+## ✅ Validation Rules
+
+GoalForge enforces the following business rules:
+
+- Total goal weightage must equal **100%**
+- Minimum weightage per goal: **10%**
+- Maximum goals per employee: **8**
+- Locked goals cannot be modified without admin access
+
+---
+
+## 📈 Supported UoM Types
+
+| Type | Description |
+|------|-------------|
+| Min | Higher achievement is better |
+| Max | Lower achievement is better |
+| Timeline | Deadline/date-based goals |
+| Zero | Zero incidents/errors = success |
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+### Backend
+- Next.js API Routes
+- NextAuth.js Authentication
+
+### Database
+- MySQL
+- Prisma ORM
+
+### Authentication & Security
+- JWT Authentication
+- bcryptjs Password Hashing
+- Role-Based Route Protection
+
+### Reporting
+- jsPDF
+- ExcelJS
+
+---
+
+## 🔐 Demo Credentials
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@goalforge.com | admin123 |
+| Manager | manager@goalforge.com | manager123 |
+| Employee | employee@goalforge.com | employee123 |
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone <your-repository-url>
+cd goalforge
