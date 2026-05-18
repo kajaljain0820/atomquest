@@ -1,74 +1,87 @@
-# AtomQuest Goal Tracking Portal 🎯
+<div align="center">
 
-> **Align Goals. Track Progress. Drive Success.**
+# ⚡ AtomQuest Goal Tracking Portal
 
-A full-stack enterprise goal-setting and performance tracking platform built with **Next.js 16**, **Prisma ORM**, and **MySQL**. Designed for the AtomQuest Hackathon, the portal enables organizations to digitize the entire employee performance lifecycle — from goal creation to quarterly achievement tracking, manager approvals, and executive reporting.
+### *Align Goals. Track Progress. Drive Success.*
+
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
+
+A full-stack enterprise **Goal Setting & Performance Tracking** platform built for the AtomQuest Hackathon. Digitizes the complete employee performance lifecycle — from goal creation and manager approvals to quarterly check-ins and executive reporting.
+
+</div>
+
+---
+
+## 📌 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Database Schema](#-database-schema)
+- [Project Structure](#-project-structure)
+- [Goal Sheet Lifecycle](#-goal-sheet-lifecycle)
+- [Business Rules & Validation](#-business-rules--validation)
+- [Getting Started](#-getting-started)
+- [Environment Variables](#-environment-variables)
+- [Demo Credentials](#-demo-credentials)
+- [API Reference](#-api-reference)
+- [Deployment](#-deployment-vercel)
+- [Security](#-security)
+
+---
+
+## 🔭 Overview
+
+AtomQuest Goal Tracking Portal is a role-based web application that enables organizations to manage the full performance management cycle:
+
+- Employees define their goals and submit them for approval
+- Managers review, edit, and approve or return goal sheets
+- Achievements are logged every quarter (Q1–Q4) against approved goals
+- Admins govern the entire system — user hierarchy, cycle configuration, and audit trails
+- Reports can be exported as **PDF** or **Excel** for HR and leadership reviews
 
 ---
 
 ## ✨ Features
 
-### 👤 Employee Portal
-- Create and manage personal performance goals per cycle year
-- Define targets, weightage (min 10% per goal, total must equal 100%), and UoM type
-- Submit goal sheets for manager review
-- Log quarterly achievements (Q1–Q4) with actual vs. target values
-- Track progress status: `NOT_STARTED` → `ON_TRACK` → `COMPLETED`
+<table>
+<tr>
+<td width="33%" valign="top">
 
-### 👔 Manager Dashboard
-- View all direct reportees and their goal sheets
-- Approve, return, or request edits on submitted goal sheets
-- Edit goal targets and weightages inline (on submitted sheets)
-- Assign **Shared Goals** to multiple employees simultaneously
-- Add structured comments on employee achievement entries
-- Conduct quarterly check-ins and monitor team-wide progress
+### 👤 Employee
+- Create & manage goals per cycle year
+- Set targets, weightage & UoM type
+- Submit goals for manager approval
+- Log quarterly achievements (Q1–Q4)
+- Track completion status in real-time
 
-### 🛡️ Admin / HR Panel
-- Manage full user hierarchy (employee ↔ manager relationships)
-- Unlock locked goal sheets for editing
-- Configure goal-setting cycle windows (open/close dates)
-- View complete audit logs for all system actions
-- Generate and export reports (PDF & Excel)
+</td>
+<td width="33%" valign="top">
 
----
+### 👔 Manager
+- Review & approve/return goal sheets
+- Edit targets & weightages inline
+- Assign shared goals to entire team
+- Add structured comments on achievements
+- Monitor team progress via dashboard
 
-## 📋 Goal Sheet Lifecycle
+</td>
+<td width="33%" valign="top">
 
-```
-DRAFT ──► SUBMITTED ──► LOCKED
-  ▲            │
-  └────────────┘ (RETURNED for edits)
-```
+### 🛡️ Admin / HR
+- Manage users & reporting hierarchy
+- Configure goal cycle windows
+- Unlock locked sheets for edits
+- View complete system audit logs
+- Export PDF & Excel reports
 
-| Status | Description |
-|--------|-------------|
-| `DRAFT` | Employee is building the goal sheet |
-| `SUBMITTED` | Submitted for manager review |
-| `LOCKED` | Approved & locked — achievements can now be logged |
-
----
-
-## 📊 Validation Rules
-
-| Rule | Detail |
-|------|--------|
-| Total weightage | Must equal exactly **100%** |
-| Min weightage per goal | **10%** |
-| Max goals per employee | **8** |
-| Locked sheet editing | Requires **Admin** access |
-| Achievement logging | Only allowed on **LOCKED** sheets |
-| Shared goal assignment | Manager can only assign to their own direct reports |
-
----
-
-## 📐 UoM Types (Unit of Measurement)
-
-| Type | Meaning |
-|------|---------|
-| `MAX` | Higher value = better performance |
-| `MIN` | Lower value = better performance |
-| `TIMELINE` | Completion before a deadline |
-| `ZERO_BASED` | Zero incidents/defects = success |
+</td>
+</tr>
+</table>
 
 ---
 
@@ -76,153 +89,208 @@ DRAFT ──► SUBMITTED ──► LOCKED
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js 16 (App Router, Turbopack) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Database | MySQL |
-| ORM | Prisma |
-| Auth | NextAuth.js (JWT + credentials) |
-| Password Hashing | bcryptjs |
-| Validation | Zod |
-| PDF Reports | jsPDF |
-| Excel Reports | ExcelJS |
-| Deployment | Vercel |
+| **Framework** | Next.js 16 (App Router, Turbopack) |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS |
+| **Database** | MySQL 8 |
+| **ORM** | Prisma |
+| **Authentication** | NextAuth.js (JWT + Credentials) |
+| **Password Hashing** | bcryptjs |
+| **Validation** | Zod |
+| **PDF Export** | jsPDF |
+| **Excel Export** | ExcelJS |
+| **Deployment** | Vercel |
 
 ---
 
 ## 🗄️ Database Schema
 
 ```
-User
- ├─ id, email, password, name, role, msEntraId
- ├─ managerId → User (self-referential)
- └─ goalSheets → GoalSheet[]
+┌──────────────────────────────────────────────────────────────┐
+│  User                                                        │
+│  id · email · password · name · role · msEntraId · managerId │
+└──────────────────┬───────────────────────────────────────────┘
+                   │ 1:N
+┌──────────────────▼───────────────────────────────────────────┐
+│  GoalSheet                                                   │
+│  id · employeeId · cycleYear · status · createdAt · lockedAt │
+└──────────────────┬───────────────────────────────────────────┘
+                   │ 1:N
+┌──────────────────▼───────────────────────────────────────────┐
+│  Goal                                                        │
+│  id · goalSheetId · title · description · thrustArea        │
+│  uomType · target · weightage · isShared · parentGoalId      │
+└──────────────────┬───────────────────────────────────────────┘
+                   │ 1:N
+┌──────────────────▼───────────────────────────────────────────┐
+│  GoalAchievement                                             │
+│  id · goalId · quarter · actualAchievement                   │
+│  status · managerComment · loggedAt                          │
+└──────────────────────────────────────────────────────────────┘
 
-GoalSheet
- ├─ id, employeeId, cycleYear, status, createdAt, lockedAt
- └─ goals → Goal[]
-
-Goal
- ├─ id, goalSheetId, title, description, thrustArea
- ├─ uomType, target, weightage
- ├─ isShared, parentGoalId
- └─ achievements → GoalAchievement[]
-
-GoalAchievement
- ├─ id, goalId, quarter, actualAchievement
- ├─ status, managerComment, loggedAt
-
-AuditLog
- ├─ id, entityId, entityType, action
- ├─ oldValues, newValues, changedById, timestamp
-
-CycleWindow
- └─ id, period, openDate, closeDate
+┌──────────────────────────────────────────────────────────────┐
+│  AuditLog                                                    │
+│  id · entityId · entityType · action                         │
+│  oldValues · newValues · changedById · timestamp             │
+├──────────────────────────────────────────────────────────────┤
+│  CycleWindow                                                 │
+│  id · period · openDate · closeDate                          │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ### User Roles
+
 | Role | Access Level |
 |------|-------------|
-| `EMPLOYEE` | Own goals & achievements |
+| `EMPLOYEE` | Own goals & achievement entries only |
 | `MANAGER` | Team goals, approvals, shared goals, comments |
-| `ADMIN` | Full system access, audit logs, config |
+| `ADMIN` | Full system — users, config, audit, unlock |
 
 ---
 
-## 🗂️ Project Structure
+## 📁 Project Structure
 
 ```
-src/
-├── app/
-│   ├── (dashboard)/
-│   │   ├── layout.tsx              # Sidebar + session guard
-│   │   └── dashboard/
-│   │       ├── page.tsx            # Main dashboard (role-aware)
-│   │       ├── goals/              # Employee goal management
-│   │       ├── progress/           # Quarterly achievement logging
-│   │       ├── team/               # Manager's team view
-│   │       │   ├── page.tsx
-│   │       │   ├── SharedGoalModal.tsx
-│   │       │   └── [id]/           # Individual employee goal sheet
-│   │       ├── reports/            # Report generation
-│   │       ├── audit/              # Audit log viewer
-│   │       └── config/             # Admin: cycle window config
-│   ├── api/
-│   │   ├── auth/[...nextauth]/     # NextAuth session handler
-│   │   ├── goals/
-│   │   │   ├── route.ts            # POST: create goal
-│   │   │   └── shared/route.ts     # POST: assign shared goals
-│   │   ├── goal-sheets/[id]/
-│   │   │   ├── submit/             # POST: submit for review
-│   │   │   ├── approve/            # POST: lock sheet
-│   │   │   ├── return/             # POST: return for edits
-│   │   │   ├── unlock/             # POST: admin unlock
-│   │   │   └── edit-goals/         # PUT: manager edits targets
-│   │   ├── achievements/
-│   │   │   ├── route.ts            # POST: log achievement, GET: fetch
-│   │   │   └── [id]/comment/       # POST: add manager comment
-│   │   └── reports/export/         # GET: generate PDF/Excel
-│   └── login/                      # Login page
-├── components/
-│   ├── layout/Sidebar.tsx          # Role-aware navigation sidebar
-│   └── Providers.tsx               # NextAuth session provider
-├── lib/
-│   └── prisma.ts                   # Prisma client singleton
-├── types/                          # TypeScript type definitions
-└── proxy.ts                        # Dev proxy config
-prisma/
-├── schema.prisma                   # Database schema
-├── seed.ts                         # Production seed (admin + roles)
-└── seed-dummy.ts                   # Demo seed with realistic test data
+atomquest/
+├── prisma/
+│   ├── schema.prisma           # Database schema & relations
+│   ├── seed.ts                 # Core seed (admin, manager, employees, cycles)
+│   └── seed-dummy.ts           # Realistic demo data for testing
+│
+├── src/
+│   ├── app/
+│   │   ├── (dashboard)/
+│   │   │   ├── layout.tsx              # Sidebar + session guard wrapper
+│   │   │   └── dashboard/
+│   │   │       ├── page.tsx            # Role-aware home dashboard
+│   │   │       ├── goals/              # Employee: goal creation & management
+│   │   │       ├── progress/           # Employee: quarterly achievement logger
+│   │   │       ├── team/               # Manager: team overview
+│   │   │       │   ├── page.tsx
+│   │   │       │   ├── SharedGoalModal.tsx
+│   │   │       │   └── [id]/           # Employee goal sheet detail view
+│   │   │       ├── reports/            # PDF & Excel report generation
+│   │   │       ├── audit/              # Admin: audit log viewer
+│   │   │       └── config/             # Admin: cycle window configuration
+│   │   │
+│   │   ├── api/
+│   │   │   ├── auth/[...nextauth]/     # NextAuth session handler
+│   │   │   ├── goals/
+│   │   │   │   ├── route.ts            # POST: create a goal
+│   │   │   │   └── shared/route.ts     # POST: assign shared goal to team
+│   │   │   ├── goal-sheets/[id]/
+│   │   │   │   ├── submit/             # POST: employee submits sheet
+│   │   │   │   ├── approve/            # POST: manager locks/approves sheet
+│   │   │   │   ├── return/             # POST: manager returns for edits
+│   │   │   │   ├── unlock/             # POST: admin unlocks a sheet
+│   │   │   │   └── edit-goals/         # PUT: manager edits targets & weightage
+│   │   │   ├── achievements/
+│   │   │   │   ├── route.ts            # POST: log achievement | GET: fetch
+│   │   │   │   └── [id]/comment/       # POST: manager adds comment
+│   │   │   └── reports/export/         # GET: export PDF or Excel report
+│   │   │
+│   │   └── login/                      # Login page
+│   │
+│   ├── components/
+│   │   ├── layout/Sidebar.tsx          # Role-aware navigation sidebar
+│   │   └── Providers.tsx               # NextAuth session provider
+│   │
+│   ├── lib/
+│   │   └── prisma.ts                   # Prisma client singleton
+│   │
+│   └── types/                          # Shared TypeScript type definitions
+│
+├── .env                                # Environment variables (not committed)
+├── next.config.ts
+└── package.json
 ```
 
 ---
 
-## ⚙️ Environment Variables
+## 🔄 Goal Sheet Lifecycle
 
-Create a `.env` file in the root with the following:
-
-```env
-DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
-NEXTAUTH_SECRET="your-secret-key-here"
-NEXTAUTH_URL="http://localhost:3000"
+```
+                ┌─────────────────────────────┐
+                │         EMPLOYEE             │
+                └──────────────┬──────────────┘
+                               │ Creates goals
+                               ▼
+                          ┌─────────┐
+                          │  DRAFT  │ ◄─────────────────────┐
+                          └────┬────┘                       │
+                               │ Submit                     │ Return
+                               ▼                            │
+                        ┌──────────────┐           ┌────────┴──────┐
+                        │  SUBMITTED   │ ─────────► │    MANAGER    │
+                        └──────────────┘  Review    └──────┬────────┘
+                                                           │ Approve
+                                                           ▼
+                                                      ┌─────────┐
+                                                      │  LOCKED │ ──► Achievements logged
+                                                      └─────────┘
 ```
 
-> **Tip:** Generate a strong secret with:
-> ```bash
-> openssl rand -base64 32
-> ```
+| Status | Who Acts | Description |
+|--------|----------|-------------|
+| `DRAFT` | Employee | Building & editing the goal sheet |
+| `SUBMITTED` | Manager | Pending manager review |
+| `LOCKED` | Employee/Manager | Approved — quarterly achievements can now be logged |
+
+---
+
+## ✅ Business Rules & Validation
+
+| Rule | Detail |
+|------|--------|
+| Total weightage | Must equal exactly **100%** before submission |
+| Minimum per goal | **10%** weightage minimum |
+| Maximum goals | **8 goals** per employee per cycle |
+| Achievement logging | Only allowed on **LOCKED** sheets |
+| Locked sheet edits | Requires **Admin** access to unlock first |
+| Shared goal assignment | Manager can only assign to their **direct reports** |
+| Weightage on shared assign | Sheet is reverted to `DRAFT` with audit log entry |
+
+### UoM Types (Unit of Measurement)
+
+| Type | Meaning |
+|------|---------|
+| `MAX` | Higher achieved value = better outcome |
+| `MIN` | Lower achieved value = better outcome |
+| `TIMELINE` | Completion before a set deadline |
+| `ZERO_BASED` | Zero incidents / defects = full success |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- MySQL 8+ database
+
+- **Node.js** v18 or higher
+- **MySQL** 8.x database (local or cloud)
+- **npm** or **yarn**
 
 ### Installation
 
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/kajaljain0820/atomquest.git
 cd atomquest
 
-# Install dependencies
+# 2. Install dependencies
 npm install
 
-# Set up environment variables
+# 3. Configure environment variables
 cp .env.example .env
-# Edit .env with your DATABASE_URL and NEXTAUTH_SECRET
+# Open .env and fill in your DATABASE_URL and NEXTAUTH_SECRET
 
-# Run database migrations
+# 4. Push the schema to your database
 npx prisma db push
 
-# Seed the database
-npx ts-node prisma/seed.ts          # Core users & roles
-npx ts-node prisma/seed-dummy.ts    # Demo data (optional)
+# 5. Seed the database
+npx ts-node prisma/seed.ts           # Core users, roles & cycle windows
+npx ts-node prisma/seed-dummy.ts     # Optional: realistic demo goal data
 
-# Start the development server
+# 6. Start the development server
 npm run dev
 ```
 
@@ -230,7 +298,31 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+## ⚙️ Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+# MySQL connection string
+DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE_NAME"
+
+# NextAuth — must be a strong random secret (min 32 chars)
+NEXTAUTH_SECRET="your-secret-here"
+
+# Base URL of the app (use your Vercel URL in production)
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+> **Generate a secure secret:**
+> ```bash
+> openssl rand -base64 32
+> ```
+
+---
+
 ## 🔐 Demo Credentials
+
+> These credentials are seeded by `prisma/seed.ts`
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -241,83 +333,90 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🌐 API Reference
+## 📡 API Reference
+
+All API routes are protected by session validation via `getServerSession`. Unauthenticated requests return `401 Unauthorized`.
 
 ### Goals
-| Method | Endpoint | Description | Auth |
+
+| Method | Endpoint | Description | Role |
 |--------|----------|-------------|------|
-| `POST` | `/api/goals` | Create a new goal | Employee |
-| `POST` | `/api/goals/shared` | Assign shared goal to team | Manager/Admin |
+| `POST` | `/api/goals` | Create a new goal on a sheet | Employee |
+| `POST` | `/api/goals/shared` | Assign a shared goal to multiple employees | Manager / Admin |
 
 ### Goal Sheets
-| Method | Endpoint | Description | Auth |
+
+| Method | Endpoint | Description | Role |
 |--------|----------|-------------|------|
-| `POST` | `/api/goal-sheets/[id]/submit` | Submit sheet for review | Employee |
-| `POST` | `/api/goal-sheets/[id]/approve` | Lock/approve sheet | Manager/Admin |
-| `POST` | `/api/goal-sheets/[id]/return` | Return sheet for edits | Manager/Admin |
+| `POST` | `/api/goal-sheets/[id]/submit` | Submit sheet for manager review | Employee |
+| `POST` | `/api/goal-sheets/[id]/approve` | Approve & lock the sheet | Manager / Admin |
+| `POST` | `/api/goal-sheets/[id]/return` | Return sheet to employee for edits | Manager / Admin |
 | `POST` | `/api/goal-sheets/[id]/unlock` | Unlock a locked sheet | Admin |
-| `PUT` | `/api/goal-sheets/[id]/edit-goals` | Edit targets & weightages | Manager/Admin |
+| `PUT` | `/api/goal-sheets/[id]/edit-goals` | Edit goal targets & weightages | Manager / Admin |
 
 ### Achievements
-| Method | Endpoint | Description | Auth |
+
+| Method | Endpoint | Description | Role |
 |--------|----------|-------------|------|
-| `POST` | `/api/achievements` | Log a quarterly achievement | Employee/Manager/Admin |
-| `GET` | `/api/achievements` | Fetch achievements (with quarter filter) | Authenticated |
-| `POST` | `/api/achievements/[id]/comment` | Add manager comment | Manager/Admin |
+| `POST` | `/api/achievements` | Log a quarterly achievement entry | Employee / Manager / Admin |
+| `GET` | `/api/achievements` | Fetch achievements (supports `?quarter=Q1` filter) | Authenticated |
+| `POST` | `/api/achievements/[id]/comment` | Add a manager comment to an entry | Manager / Admin |
 
 ### Reports
-| Method | Endpoint | Description | Auth |
+
+| Method | Endpoint | Description | Role |
 |--------|----------|-------------|------|
-| `GET` | `/api/reports/export` | Export PDF or Excel report | Manager/Admin |
+| `GET` | `/api/reports/export` | Export report as PDF or Excel | Manager / Admin |
 
 ---
 
 ## 🚢 Deployment (Vercel)
 
 1. Push your code to GitHub
-2. Connect the repository on [vercel.com](https://vercel.com)
+2. Go to [vercel.com](https://vercel.com) → **New Project** → import the repository
 3. Add the following **Environment Variables** in the Vercel dashboard:
-   - `DATABASE_URL`
-   - `NEXTAUTH_SECRET`
-   - `NEXTAUTH_URL` (set to your Vercel production URL)
-4. Deploy — Vercel auto-detects Next.js and builds accordingly
 
-> **Note:** Ensure your MySQL database is accessible from Vercel's network. Use PlanetScale, Railway, or any cloud MySQL provider.
+   | Variable | Value |
+   |----------|-------|
+   | `DATABASE_URL` | Your cloud MySQL connection string |
+   | `NEXTAUTH_SECRET` | Generated secret (see above) |
+   | `NEXTAUTH_URL` | Your Vercel production URL (e.g. `https://your-app.vercel.app`) |
+
+4. Click **Deploy** — Vercel auto-detects Next.js and builds with Turbopack
+
+> **Recommended DB providers:** [PlanetScale](https://planetscale.com/), [Railway](https://railway.app/), [Aiven](https://aiven.io/)
 
 ---
 
 ## 🔒 Security
 
-- Passwords are hashed with **bcryptjs** before storage — never stored in plaintext
-- All API routes validate the active session via `getServerSession` before processing
-- Role-based guards enforce that employees cannot access manager/admin endpoints
-- Audit logs record every state-changing action (approvals, unlocks, reversions) with actor identity and timestamps
-- Zod schema validation on all incoming API payloads
+| Measure | Implementation |
+|---------|---------------|
+| Password storage | Hashed with **bcryptjs** (salt rounds: 10) — never stored in plaintext |
+| Session auth | Every API route validates session via `getServerSession` before execution |
+| Role enforcement | API-level RBAC — employees cannot reach manager/admin endpoints |
+| Input validation | All incoming payloads validated with **Zod** schemas |
+| Audit trail | Every state-changing action is logged with actor identity and timestamp |
 
 ---
 
-## 📝 Audit Logging
+## 📋 Audit Log Events
 
-Every significant action is recorded in the `AuditLog` table:
-
-| Action | Trigger |
-|--------|---------|
-| `REVERTED_TO_DRAFT_SHARED_GOAL` | Sheet reverted when a shared goal is added |
-| Goal approvals & rejections | Manager approve/return actions |
-| Sheet unlocks | Admin unlock operations |
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m 'feat: add your feature'`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Open a Pull Request
+| Event | Trigger |
+|-------|---------|
+| `REVERTED_TO_DRAFT_SHARED_GOAL` | Sheet reverted to DRAFT when a shared goal is assigned |
+| Goal sheet approval | Manager locks a submitted sheet |
+| Goal sheet return | Manager returns sheet to employee |
+| Admin unlock | Admin unlocks a locked sheet |
 
 ---
 
 ## 📄 License
 
-This project was built for the **AtomQuest Hackathon**. All rights reserved.
+This project was developed for the **AtomQuest Hackathon 2026**. All rights reserved.
+
+---
+
+<div align="center">
+  Built with ❤️ for AtomQuest · Powered by Next.js & Prisma
+</div>
