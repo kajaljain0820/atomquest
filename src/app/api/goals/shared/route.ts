@@ -81,7 +81,6 @@ export async function POST(req: NextRequest) {
         data: {
           ...goalData,
           goalSheetId: sheet.id,
-          status: "PENDING"
         }
       });
       createdGoals.push(goal);
