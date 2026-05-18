@@ -234,9 +234,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | admin@atomquest.com | admin123 |
-| Manager | manager@atomquest.com | manager123 |
-| Employee | employee@atomquest.com | employee123 |
+| Admin | admin@goalforge.com | admin123 |
+| Manager | manager@goalforge.com | manager123 |
+| Employee | employee@goalforge.com | employee123 |
+| Employee 2 | employee2@goalforge.com | employee123 |
 
 ---
 
